@@ -1,11 +1,3 @@
-"""
-    GoogleViews:
-    /s(earch) <term>
-    /i(mage) <term>
-    /t(ts) <text>
-    youtube urls
-
-"""
 from yowsup.layers.protocol_messages.protocolentities import TextMessageProtocolEntity
 from utils.media_sender import ImageSender, VideoSender, UrlPrintSender, GoogleTtsSender, YouGetSender
 import requests, urllib.parse
