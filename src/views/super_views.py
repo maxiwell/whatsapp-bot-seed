@@ -36,19 +36,22 @@ HELP_TEXT = """ [HELP]
 - Commands
 /help - Show this message.
 /about - About
-/s(earch) - I'm lucky!
-/i(mage) - I'm lucky with image!
-/t(ts) - Text to speech.
-/(even)(odd) - Amazing game.
 /ping - Pong.
-/echo - Echo.
 /roll - Roll a dice.
-
+/(even)(odd) - Amazing game.
+/echo - Echo.
+/s(earch) - I'm lucky!
+"""
+#FIXME
+#/i(mage) - I'm lucky with image!
+#/t(ts) - Text to speech.
+HELP_TEXT = HELP_TEXT+"""
 Automatic:
     - Url (http://...) print screen.
     - Image (jpeg, gif, png) download.
     - Videos (mp4, webm) downloads.
     - Youtube videos.
+    - Facebook videos.
 """
 
 ABOUT_TEXT = """ [Whatsapp Bot Seed]
