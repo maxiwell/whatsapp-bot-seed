@@ -121,7 +121,7 @@ class MediaSender():
         return self.file_extension_regex.findall(url)[0]
 
     def _build_file_path(self, url):
-        id = hashlib.md5(url).hexdigest()
+        id = hashlib.md5(url.encode('utf-8')).hexdigest()
         return ''.join([self.storage_path, id, ".", self._get_file_ext(url)])
 
 
@@ -177,7 +177,7 @@ class UrlPrintSender(ImageSender):
         return file_path
 
     def _build_file_path(self, page_url):
-        id = hashlib.md5(page_url).hexdigest()
+        id = hashlib.md5(page_url.encode('utf-8')).hexdigest()
         return ''.join([self.storage_path, id, str(int(time.time()))[:-2], ".png"])
 
 
@@ -204,5 +204,5 @@ class GoogleTtsSender(AudioSender):
         return file_path
 
     def _build_file_path(self, text):
-        id = hashlib.md5(text).hexdigest()
+        id = hashlib.md5(text.encode('utf-8')).hexdigest()
         return ''.join([self.storage_path, id, ".mp3"])
