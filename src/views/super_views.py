@@ -48,8 +48,9 @@ HELP_TEXT = """ [HELP]
 HELP_TEXT = HELP_TEXT+"""
 Automatic:
     - Url (http://...) print screen.
-    - Image (jpeg, gif, png) download.
-    - Videos (mp4, webm) downloads.
+    - Image (.jpeg, .png) download.
+    - Videos (.mp4, .webm) downloads.
+    - Gif (.gif) to Video converter.
     - Youtube videos.
     - Facebook videos.
 """
