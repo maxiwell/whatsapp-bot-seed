@@ -16,6 +16,8 @@ from yowsup.layers.protocol_media.protocolentities.message_media_downloadable_au
     AudioDownloadableMediaMessageProtocolEntity
 from yowsup.layers.protocol_messages.protocolentities import TextMessageProtocolEntity
 
+from you_get.common import script_main as YouGetMain
+
 import subprocess
 import time
 import os
@@ -206,3 +208,47 @@ class GoogleTtsSender(AudioSender):
     def _build_file_path(self, text):
         id = hashlib.md5(text.encode('utf-8')).hexdigest()
         return ''.join([self.storage_path, id, ".mp3"])
+
+class YouGetSender(VideoSender):
+    """
+        Uses the you-get project to handler download of many sites
+        github.com:soimort/you-get.git
+    """
+   
+    def find_between(self, s, first, last="" ):
+        try:
+            start = s.index( first ) + len( first )
+            end = s.index( last, start )
+            if last=="":
+                return s[start:]
+            return s[start:end]
+        except ValueError:
+            return ""
+    
+    def handler_facebook(self, jid, full_url):
+        try:
+            # self.interface_layer.toLower(TextMessageProtocolEntity("{...}", to=jid))
+
+            if "story_fbid" in full_url:
+                "come from mobile"
+                video_id = self.find_between(full_url, "story_fbid=", "&")
+                page_id = self.find_between(full_url, "&id=")
+                full_url="http://www.facebook.com/"+page_id+"/videos/"+video_id
+            else:
+                video_id = self.find_between(full_url, "videos/")
+            
+            file_path = self._build_file_path(video_id)
+            if not os.path.isfile(file_path):
+                cmd = 'you-get -O "%s" "%s"' % (file_path, full_url)
+                p = subprocess.Popen(cmd, shell=True, cwd=self.storage_path)
+                p.wait()
+            self.send_by_path(jid, file_path)
+        except Exception as e:
+            logging.exception(e)
+            self._on_error(jid)
+
+    def _build_file_path(self, video_id):
+        return ''.join([self.storage_path, video_id, ".mp4"])
+
+   
+

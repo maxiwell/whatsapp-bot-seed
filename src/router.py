@@ -14,7 +14,7 @@ from views.media import MediaViews
 from views.super_views import SuperViews
 from views.group_admin import GroupAdminViews
 from views.google import GoogleViews
-
+from views.youget import YouGetViews
 
 # Basic regex routes
 routes = [("^/ping", basic_views.ping),
@@ -35,6 +35,9 @@ class RouteLayer(YowInterfaceLayer):
         # Google views to handle tts, search and youtube
         routes.extend(GoogleViews(self).routes)
 
+        # YouGet views to handles many video types
+        routes.extend(YouGetViews(self).routes)
+
         # Media views to handle url print screen and media download
         routes.extend(MediaViews(self).routes)
 
@@ -45,6 +48,7 @@ class RouteLayer(YowInterfaceLayer):
         # read the issue on: https://github.com/joaoricardo000/whatsapp-bot-seed/issues/4
         # enable on your own risk!
         # routes.extend(GroupAdminViews(self).routes)
+
 
         self.views = [(re.compile(pattern), callback) for pattern, callback in routes]
 
