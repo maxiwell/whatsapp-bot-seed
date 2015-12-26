@@ -16,7 +16,8 @@ class MediaViews():
         self.video_sender = VideoSender(interface_layer)
         self.url_print_sender = UrlPrintSender(interface_layer)
         self.routes = [
-            ("https?:\/\/(?:[\w\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|gif|png)($|\?[^\s]+$)", self.send_image),
+            #("https?:\/\/(?:[\w\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|gif|png)($|\?[^\s]+$)", self.send_image),
+            ("https?:\/\/(?:[\w\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:jpe?g|png)($|\?[^\s]+$)", self.send_image),
             ("https?:\/\/(?:[\w\-]+\.)+[a-z]{2,6}(?:\/[^\/#?]+)+\.(?:mp4|webm)($|\?[^\s]+$)", self.send_video),
             ("https?:\/\/[^$]+$", self.send_url_print),
         ]

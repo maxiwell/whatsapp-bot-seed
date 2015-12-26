@@ -15,6 +15,7 @@ from views.super_views import SuperViews
 from views.group_admin import GroupAdminViews
 from views.google import GoogleViews
 from views.youget import YouGetViews
+from views.gifs import GifsViews
 
 # Basic regex routes
 routes = [("^/ping", basic_views.ping),
@@ -37,6 +38,9 @@ class RouteLayer(YowInterfaceLayer):
 
         # YouGet views to handles many video types
         routes.extend(YouGetViews(self).routes)
+
+        # Transform gif to mp4 and send it
+        routes.extend(GifsViews(self).routes)
 
         # Media views to handle url print screen and media download
         routes.extend(MediaViews(self).routes)
