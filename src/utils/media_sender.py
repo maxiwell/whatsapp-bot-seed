@@ -243,28 +243,18 @@ class YouGetSender(VideoSender):
         Uses the you-get project to handler download of many sites
         github.com:soimort/you-get.git
     """
-   
-    def find_between(self, s, first, last="" ):
-        try:
-            start = s.index( first ) + len( first )
-            end = s.index( last, start )
-            if last=="":
-                return s[start:]
-            return s[start:end]
-        except ValueError:
-            return ""
-    
+      
     def handler_facebook(self, jid, full_url):
         try:
             # self.interface_layer.toLower(TextMessageProtocolEntity("{...}", to=jid))
 
             if "story_fbid" in full_url:
                 "come from mobile"
-                video_id = self.find_between(full_url, "story_fbid=", "&")
-                page_id = self.find_between(full_url, "&id=")
+                video_id = re.search("(?<=story_fbid=)[0-9]*", full_url).group(0)
+                page_id  = re.search("(?<=&id=)[0-9]*", full_url).group(0)
                 full_url="http://www.facebook.com/"+page_id+"/videos/"+video_id
             else:
-                video_id = self.find_between(full_url, "videos/")
+                video_id = re.search("(?<=videos/)[0-9]*", full_url).group(0)
             
             file_path = self._build_file_path(video_id)
             if not os.path.isfile(file_path):
